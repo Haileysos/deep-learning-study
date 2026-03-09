@@ -16,11 +16,13 @@ y = 1　　if (w1x1 + w2x2 ≥ T)
 - `x` : 입력값
 - `w` : 가중치
 - `T` : 임계값 (threshold)
-- `b` : bias (b = -T)
-&nbsp;
+- `b` : bias (b = -T)  
+
+&nbsp;  
 ---
-&nbsp;
-## 2. 퍼셉트론 구현 (Python)
+&nbsp;  
+
+## 2. 퍼셉트론 구현
 
 ### 기본 Python 구현
 
@@ -75,18 +77,24 @@ print(perceptron(0,1))
 print(perceptron(1,1))
 ```
 
-## 3. 퍼셉트론 학습 알고리즘
+&nbsp;
+---
+&nbsp;  
 
-퍼셉트론의 핵심은 학습을 통해 가중치를 자동으로 조정하는 것이다.
-즉, 신경망이 데이터를 이용하여 적절한 가중치(weight) 를 스스로 찾는다.
+## 3. 퍼셉트론 학습 알고리즘  
 
-학습 알고리즘
-input : 학습 데이터 (x<sup>1</sup>, d<sup>1</sup>), ..., (x<sup>2</sup>, d<sup>2</sup>), (x<sup>m</sup>, d<sup>m</sup>)
-모든 가중치 `w`와 바이어스 `b`를 0또는 작은 난수로 초기화
-while (가중치 `w`가 변경되지 않을 때까지 반복)
-  for 각 학습 데이터 x<sup>k</sup>와 정답 d<sup>k</sup>
-    y<sup>k</sup>(t) = f(w(t) x<sup>k</sup>)
-    모든 가중치 w<sub>i</sub>에 대하여 w<sub>i</sub>(t+1) = w<sub>i</sub>(t) + η (d<sup>k</sup> - y<sup>k</sup>(t)) x<sup>k</sup><sub>i</sub>
+퍼셉트론의 핵심은 학습을 통해 가중치를 자동으로 조정하는 것  
+
+즉, 신경망이 데이터를 이용하여 적절한 가중치를 스스로 찾음  
+&nbsp;
+### 학습 알고리즘  
+input : 학습 데이터 (x<sup>1</sup>, d<sup>1</sup>), ..., (x<sup>2</sup>, d<sup>2</sup>), (x<sup>m</sup>, d<sup>m</sup>)  
+
+모든 가중치 `w`와 바이어스 `b`를 0또는 작은 난수로 초기화  
+while (가중치 `w`가 변경되지 않을 때까지 반복  
+　for 각 학습 데이터 x<sup>k</sup>와 정답 d<sup>k</sup>  
+　　y<sup>k</sup>(t) = f(w(t) x<sup>k</sup>)  
+　　모든 가중치 w<sub>i</sub>에 대하여 w<sub>i</sub>(t+1) = w<sub>i</sub>(t) + η (d<sup>k</sup> - y<sup>k</sup>(t)) x<sup>k</sup><sub>i</sub>  
     
 1. 학습 데이터를 입력
 2. 현재 가중치로 예측값을 계산한다.
@@ -115,9 +123,15 @@ w_i(t+1) = w_i(t) + η (d - y) x_i
 퍼셉트론이 1을 0으로 잘못 식별했다고 하자. 가중치의 변화량은 η * (1-0) * xi k 가 된다. 따라서가중치는 증가된다. 가중치가 증가되면 출력도 증가되어서 출력이 0에서 1이 될 가능성이 있다.
 
 반대로 0을 1로 잘못 식별했다고 하자. 가중치의 변화량은 η * (0-1) * xik 가 된다. 따라서 가중치는
-줄어든다. 가중치가 줄어들면 출력도 감소되어서 출력이 1에서 0이 될 가능성이 있다.
+줄어든다. 가중치가 줄어들면 출력도 감소되어서 출력이 1에서 0이 될 가능성이 있다.  
 
-## 4. 퍼셉트론 학습 구현 (Python)
+&nbsp;
+---
+&nbsp;  
+
+## 4. 퍼셉트론 학습 구현  
+
+### Python 구현
 
 ```python
 import numpy as np
@@ -169,5 +183,75 @@ def perceptron_predict(X, Y):
 perceptron_fit(X, y, 6)
 perceptron_predict(X, y)
 ```
+
+### sklearn 구현
+
+```python
+from sklearn.linear_model import Perceptron
+
+X = [[0,0],[0,1],[1,0],[1,1]]
+y = [0,0,0,1]
+
+clf = Perceptron(tol=1e-3, random_state=0)
+
+clf.fit(X, y)
+
+print(clf.predict(X))
+```
+
+&nbsp;
+---
+&nbsp;  
+
+## 5. 퍼셉트론의 한계 (XOR)  
+
+퍼셉트론은 선형 분류자(linear classifier)의 일종으로서  
+
+데이터를 직선으로 분리할 수 있는 경우에만 학습이 가능    
+
+하지만 XOR 문제는 직선 하나로 데이터를 분리할 수 없음  
+
+XOR 논리 연산  
+
+| x1 | x2 | y |
+| -- | -- | - |
+| 0  | 0  | 0 |
+| 0  | 1  | 1 |
+| 1  | 0  | 1 |
+| 1  | 1  | 0 |
+
+이 데이터는 한 개의 직선으로 분리할 수 없기 때문에  
+
+단층 퍼셉트론(single-layer perceptron) 은 XOR 문제를 해결할 수 없다.  
+
+&nbsp;
+---
+&nbsp;  
+
+## 6. 다층 퍼셉트론 (Multi-layer Perceptron)
+
+XOR 문제를 해결하기 위해 다층 퍼셉트론(Multi-layer Perceptron, MLP) 이 등장  
+
+다층 퍼셉트론은 여러 개의 퍼셉트론을 층(layer) 구조로 연결한 신경망
+
+구조
+
+입력층 → 은닉층 → 출력층
+
+은닉층(hidden layer)을 추가하면 데이터 공간을 변환할 수 있기 때문에  
+단층 퍼셉트론으로 해결할 수 없던 문제도 해결할 수 있다.  
+
+즉  
+
+단층 퍼셉트론 → XOR 해결 불가  
+다층 퍼셉트론 → XOR 해결 가능  
+
+이 구조가 이후 딥러닝(Deep Learning) 의 기본 구조가 된다.
+
+
+
+
+
+
 
 
