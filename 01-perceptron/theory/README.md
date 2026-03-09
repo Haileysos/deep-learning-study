@@ -1,6 +1,5 @@
 # Perceptron
-
-
+&nbsp;
 ## 1. 퍼셉트론 (Perceptron)
 
 ### 퍼셉트론 : 1957년 Frank Rosenblatt가 고안한 인공 신경망 모델  
@@ -18,9 +17,9 @@ y = 1　　if (w1x1 + w2x2 ≥ T)
 - `w` : 가중치
 - `T` : 임계값 (threshold)
 - `b` : bias (b = -T)
-
+&nbsp;
 ---
-
+&nbsp;
 ## 2. 퍼셉트론 구현 (Python)
 
 ### 기본 Python 구현
@@ -42,14 +41,14 @@ print(perceptron(1,0))
 print(perceptron(0,1))
 print(perceptron(1,1))
 ```
-출력결과 0 0 0 1
+출력결과 0 0 0 1  
 이는 AND 논리 연산과 동일한 결과이다.
 | x1 | x2 | y |
 | -- | -- | - |
 | 0  | 0  | 0 |
 | 1  | 0  | 0 |
 | 0  | 1  | 0 |
-| 1  | 1  | 1 |
+| 1  | 1  | 1 |  
 
 ### Numpy를 이용해 구현
 
