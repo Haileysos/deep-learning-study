@@ -24,7 +24,7 @@ y = 1　　if (w1x1 + w2x2 ≥ T)
 
 ## 2. 퍼셉트론 구현
 
-### 기본 Python 구현
+### 기본 Python 사용
 
 ```python
 epsilon = 0.0000001
@@ -52,7 +52,7 @@ print(perceptron(1,1))
 | 0  | 1  | 0 |
 | 1  | 1  | 1 |  
 
-### Numpy를 이용해 구현
+### Numpy 사용
 
 ```python
 import numpy as np
