@@ -89,13 +89,13 @@ print(perceptron(1,1)) # 1x1 + 1x1 + (-1.5) = 0.5 > epsilon -> 1
 즉, 신경망이 데이터를 이용하여 적절한 가중치를 스스로 찾음  
 &nbsp;
 ### 학습 알고리즘  
-input : 학습 데이터 (x<sup>1</sup>, d<sup>1</sup>), ..., (x<sup>2</sup>, d<sup>2</sup>), (x<sup>m</sup>, d<sup>m</sup>)  
+input : 학습 데이터 (x<sup>1</sup>, d<sup>1</sup>), (x<sup>2</sup>, d<sup>2</sup>), ..., (x<sup>m</sup>, d<sup>m</sup>)  
 
 모든 가중치 `w`와 바이어스 `b`를 0또는 작은 난수로 초기화  
-while (가중치 `w`가 변경되지 않을 때까지 반복  
-　for 각 학습 데이터 x<sup>k</sup>와 정답 d<sup>k</sup>  
-　　y<sup>k</sup>(t) = f(w(t) x<sup>k</sup>)  
-　　모든 가중치 w<sub>i</sub>에 대하여 w<sub>i</sub>(t+1) = w<sub>i</sub>(t) + η (d<sup>k</sup> - y<sup>k</sup>(t)) x<sup>k</sup><sub>i</sub>  
+while (가중치 `w`가 변경되지 않을 때까지 반복)  
+　  for 각 학습 데이터 x<sup>k</sup>와 정답 d<sup>k</sup>  
+　　    y<sup>k</sup>(t) = f(w(t) x<sup>k</sup>)  
+　　    모든 가중치 w<sub>i</sub>에 대하여 w<sub>i</sub> (t+1) = w<sub>i</sub> (t) + η (d<sup>k</sup> - y<sup>k</sup>(t)) x<sup>k</sup><sub>i</sub>  
     
 1. 학습 데이터를 입력
 2. 현재 가중치로 예측값을 계산한다.
@@ -107,9 +107,7 @@ while (가중치 `w`가 변경되지 않을 때까지 반복
 
 퍼셉트론의 가중치는 다음과 같이 업데이트된다.
 
-w_i(t+1) = w_i(t) + η (d - y) x_i
-
-여기서
+w<sub>i</sub> (t+1) = w<sub>i</sub> (t) + η (d<sup>k</sup> - y<sup>k</sup>(t)) x<sup>k</sup><sub>i</sub>
 
 `η` : 학습률 (learning rate)
 
@@ -121,10 +119,9 @@ w_i(t+1) = w_i(t) + η (d - y) x_i
 
 `w<sub>i</sub>` : 가중치
 
-퍼셉트론이 1을 0으로 잘못 식별했다고 하자. 가중치의 변화량은 η * (1-0) * xi k 가 된다. 따라서가중치는 증가된다. 가중치가 증가되면 출력도 증가되어서 출력이 0에서 1이 될 가능성이 있다.
+퍼셉트론이 1을 0으로 잘못 식별했다고 하자. 가중치의 변화량은 η * (1-0) * x<sup>k</sup><sub>i</sub> 가 된다. 따라서 가중치는 증가된다. 가중치가 증가되면 출력도 증가되어서 출력이 0에서 1이 될 가능성이 있다.  
 
-반대로 0을 1로 잘못 식별했다고 하자. 가중치의 변화량은 η * (0-1) * xik 가 된다. 따라서 가중치는
-줄어든다. 가중치가 줄어들면 출력도 감소되어서 출력이 1에서 0이 될 가능성이 있다.  
+반대로 0을 1로 잘못 식별했다고 하자. 가중치의 변화량은 η * (0-1) * x<sup>k</sup><sub>i</sub> 가 된다. 따라서 가중치는 줄어든다. 가중치가 줄어들면 출력도 감소되어서 출력이 1에서 0이 될 가능성이 있다.  
 
 &nbsp;
 ---
@@ -139,50 +136,52 @@ import numpy as np
 
 epsilon = 0.0000001
 
-def step_func(t):
+def step_func(t): # 퍼셉트론 활성화 함수 (최종 판단 함수)
     if t > epsilon:
         return 1
     else:
         return 0
 
-X = np.array([
-    [0,0,1],
-    [0,1,1],
-    [1,0,1],
-    [1,1,1]
-])
+def perceptron_fit(X, Y, epochs=10): # 퍼셉트론 학습 알고리즘 구현
+                                     # X:입력데이터/Y:정답데이터/epochs:몇번반복할지
+    global W # 가중치 (함수 밖에 있는 가중치를 가지고 학습하며 수정함)
+    eta = 0.2 # 학습
 
-y = np.array([0,0,0,1])
+    for t in range(epochs): # 학습을 반복하는 파트 (epochs=10 이므로 10번 반복)
+        print("==== epoch = ", t, "====") # 현재 몇 번째 반복 학습인지 보여
+        for i in range(len(X)): # 현재 X는 4개의 입력이 있으므로 4번 돌림
 
-W = np.zeros(len(X[0]))
+            predict = step_func(np.dot(X[i], W)) # 퍼셉트론이 예측하는 값 계산
+            error = Y[i] - predict # 오차계산 (오차 = 실제 정답 - 퍼셉트론이 예측한 값)
 
-def perceptron_fit(X, Y, epochs=10):
-
-    global W
-    eta = 0.2
-
-    for t in range(epochs):
-        print("epoch=", t, "======================")
-        for i in range(len(X)):
-
-            predict = step_func(np.dot(X[i], W))
-            error = Y[i] - predict
-
-            W += eta * error * X[i]
+            W += eta * error * X[i] 
 
             print("현재 처리 입력=",X[i],"정답=",Y[i],"출력=",predict,"변경된 가중치=", W)
         print("================================")
 
-def perceptron_predict(X, Y): 
+def perceptron_predict(X, Y): # 최종 결과 확인 함수
 
-    global W
+    global W # 학습이 끝난 가중치 w
 
     for x in X:
 
         print(x[0], x[1], "->", step_func(np.dot(x, W)))
 
-perceptron_fit(X, y, 6)
-perceptron_predict(X, y)
+
+X = np.array([ # 훈련 데이터 셋
+    [0,0,1], # x1=0, x2=0, bias=1
+    [0,1,1], # x1=0, x2=1, bias=1
+    [1,0,1], # x1=1, x2=0 bias=1
+    [1,1,1] # x1=1, x2=1, bias=1
+]) # 마지막 1은 바이어스를 위한 입력신호 1
+
+y = np.array([0,0,0,1]) # 정답을 저장하는 넘파이 행렬
+                        # 정답은 0, 0, 0, 1 -> 이 부분을 보고 이 코드가 AND 구나 하고 앎
+W = np.zeros(len(X[0])) # 가중치를 저장하는 넘파이 행렬
+                        # X[0] = [0,0,1] 이므로 len(X[0])=3, W=[0,0,0]
+                        # 일단 처음에 아무것도 모르는 상태이기 때문에
+perceptron_fit(X, y, 6) # 입력, 정답을 가지고 6번 반복 학습
+perceptron_predict(X, y) # 학습 종료 후 최종 출력 확
 ```
 
 ### sklearn 구현
