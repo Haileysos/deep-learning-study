@@ -27,6 +27,11 @@ print(perceptron(input1, input2)
 ### Perceptron learning algorithm
 
 ```python
+import numpy as np
+
+epsilon = 0.0000001
+
+def perceptron (x1, x2):
 
 
 ```
