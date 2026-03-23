@@ -3,9 +3,9 @@
 ## 1. Multi-Layer Perceptron : MLP (다층 퍼셉트론)  
 : 입력층과 출력층 사이에 은닉층(hidden layer)을 가지고 있는 퍼셉트론  
 
-&nbsp;  
+<br><br><br><br>
 ---  
-&nbsp;  
+<br><br><br><br>
 
 ## 2. Activation Function (활성화 함수)   
 : 뉴런(노드)의 입력 신호의 합을 받아서 최종 출력값을 결정하는 함수  
