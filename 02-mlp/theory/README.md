@@ -97,16 +97,6 @@ plt.show # 만든 그래프를 화면에 보여줌
 
 <br><br><br><br>
 ---  
-<br><br><br><br>
-
-## 3. MLP의 순방향 패스  
-: 입력 신호가 입력층 유닛에 가해지고 이 입력 신호가 은닉층을 통해 출력층으로 전파되는 과정
-<img width="583" height="437" alt="image" src="https://github.com/user-attachments/assets/2bae0fd4-a627-4c0a-9a86-bdb2e6758589" />  
-손계산 Time~  
-<img width="529" height="288" alt="image" src="https://github.com/user-attachments/assets/eeedae6b-2be6-4738-9ad8-fe9be6e9a4b5" />
-<img width="327" height="162" alt="image" src="https://github.com/user-attachments/assets/9cf5d9c8-eb7a-4736-909f-e5340397dd25" />
-
-
 
 
 
