@@ -83,10 +83,44 @@ plt.show() # 만든 그래프를 화면에 보여줌
 <br><img width="742" height="278" alt="Image" src="https://github.com/user-attachments/assets/33cbac22-8964-4dad-978e-e392848f8653" /><br>
 ```python
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # 그래프를 그리기 위한 라이브러리를 가져옴
 
+def relu(x):
+  return np.maximum(x, 0) # x 와 0 을 비교해서 더 큰 값을 고르는 함수
+                          # x 가 0 보다 작으면 0, 0보다 크면 x
+x = np.arange ( -10.0, 10.0, 0.1) # -10.0 부터 10.0 까지 0.1 간격으로 숫자를 만들어서 x에 저장
+y = relu(x) # relu 함수에 x 를 넣고 그 결과를 y에 저장
+plt.plot(x , y) # x를 가로축, y를 세로축으로 해서 그래프를 그림
+plt.show # 만든 그래프를 화면에 보여줌
 
 ```
-<br>
+
+<br><br><br><br>
+---  
+<br><br><br><br>
+
+## 3. MLP의 순방향 패스  
+: 입력 신호가 입력층 유닛에 가해지고 이 입력 신호가 은닉층을 통해 출력층으로 전파되는 과정
+<img width="583" height="437" alt="image" src="https://github.com/user-attachments/assets/2bae0fd4-a627-4c0a-9a86-bdb2e6758589" />  
+손계산 Time~  
+<img width="529" height="288" alt="image" src="https://github.com/user-attachments/assets/eeedae6b-2be6-4738-9ad8-fe9be6e9a4b5" />
+<img width="327" height="162" alt="image" src="https://github.com/user-attachments/assets/9cf5d9c8-eb7a-4736-909f-e5340397dd25" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
