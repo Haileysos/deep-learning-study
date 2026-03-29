@@ -1,5 +1,5 @@
 
-#  MLP의 순방향 패스  
+#  MLP의 Forward Propagation (순방향 패스)
 : 입력 신호가 입력층 유닛에 가해지고 이 입력 신호가 은닉층을 통해 출력층으로 전파되는 과정  
 <br><img width="40%" alt="image" src="https://github.com/user-attachments/assets/2bae0fd4-a627-4c0a-9a86-bdb2e6758589" /><br>  
 <br><br>  
