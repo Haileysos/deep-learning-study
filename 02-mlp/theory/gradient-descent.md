@@ -37,3 +37,5 @@ for i in range(max_iterations):
 
 print("최소값 = ", x)
 ```
+<br>
+
